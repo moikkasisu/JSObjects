@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Object-oriented JavaScript example</title>
+  </head>
+
+  <body>
+    <canvas width="320" height="240">
+      <p>Your browser doesn't support canvas. Boo hoo!</p>
+    </canvas> 
+
+  </body>
+    <script>
+// let person1 = new Object({
+//   name: 'Christina',
+//   age: 38, 
+//   greeting: function() {
+//     alert ('Hi! I\'m' + this. name + '.');
+//   }
+// })
+// let person2 = Object.create(person1)
+function Person(first, last, age, gender, interests) {
+  
+  // property and method definitions
+  this.name = {
+    'first': first,
+    'last' : last
+  };
+  this.age = age;
+  this.gender = gender;
+  this.interests = interests;
+  this.bio = function() {
+    alert(this.name.first + ' ' + this.name.last + ' is ' + this.age + ' years old. He likes ' + this.interests[0] + ' and ' + this.interests[1] + '.');
+  };
+  this.greeting = function() {
+    alert('Hi! I\'m ' + this.name.first + '.');
+  };
+}
+
+let person1 = new Person('Bob', 'Smith', 32, 'male', ['music', 'skiing']);
+let person2 = Object.create(person1); //console says person2 is undefined when: person2._proto_; but person2.__proto__ works!!!
+
+let person3 = new person1.constructor('Karen', 'Stephenson', 26, 'female', ['playing drums', 'mountain climbing']);
+
+Person.prototype.farewell = function() {
+  alert(this.name.first + ' has left the building. Bye for now!');
+};
+
+function Teacher(first, last, age, gender, interests, subject) {
+  Person.call(this, first, last, age, gender, interests);
+  this.subject = subject;
+}
+
+function Brick() {
+  this.width = 10;
+  this.height = 20;
+}
+function BlueGlassBrick() {
+  Brick.call(this);
+
+  this.opacity = 0.5;
+  this.color = 'blue';
+}
+
+Teacher.prototype = Object.create(Person.prototype);
+
+Object.defineProperty(Teacher.prototype, 'constructor', { 
+    value: Teacher, 
+    enumerable: false, // so that it does not appear in 'for in' loop
+    writable: true });
+
+    Teacher.prototype.greeting = function() {
+  let prefix;
+
+  if (this.gender === 'male' || this.gender === 'Male' || this.gender === 'm' || this.gender === 'M') {
+    prefix = 'Mr.';
+  } else if (this.gender === 'female' || this.gender === 'Female' || this.gender === 'f' || this.gender === 'F') {
+    prefix = 'Ms.';
+  } else {
+    prefix = 'Mx.';
+  }
+
+  alert('Hello. My name is ' + prefix + ' ' + this.name.last + ', and I teach ' + this.subject + '.');
+};
+
+let teacher1 = new Teacher('Dave', 'Griffiths', 31, 'male', ['football', 'cookery'], 'mathematics');
+
+
+
+  </script>
+</html>
+

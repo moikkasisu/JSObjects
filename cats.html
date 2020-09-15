@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <title>cats</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Faster+One" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+  </head>
+
+  <body>
+
+      <header>
+
+      </header>
+
+      <section>
+
+      </section>
+
+    <script>
+//     const header = document.querySelector('header');
+//     const section = document.querySelector('section');
+
+
+//     let requestURL = 'https://mdn.github.io/learning-area/javascript/oojs/json/superheroes.json';
+
+//     let request = new XMLHttpRequest();
+
+//     request.open('GET', requestURL);
+
+//     request.responseType = 'json';
+//     request.send();
+
+//     request.onload = function() {
+//   const superHeroes = request.response;
+//   const superHeroes = JSON.parse(superHeroesText);
+//   populateHeader(superHeroes);
+//   showHeroes(superHeroes);
+
+//   function populateHeader(jsonObj) {
+//   const myH1 = document.createElement('h1');
+//   myH1.textContent = jsonObj['squadName'];
+//   header.appendChild(myH1);
+
+//   const myPara = document.createElement('p');
+//   myPara.textContent = 'Hometown: ' + jsonObj['homeTown'] + ' // Formed: ' + jsonObj['formed'];
+//   header.appendChild(myPara);
+// }
+// }
+
+// function showHeroes(jsonObj) {
+//   const heroes = jsonObj['members'];
+      
+//   for (let i = 0; i < heroes.length; i++) {
+//     const myArticle = document.createElement('article');
+//     const myH2 = document.createElement('h2');
+//     const myPara1 = document.createElement('p');
+//     const myPara2 = document.createElement('p');
+//     const myPara3 = document.createElement('p');
+//     const myList = document.createElement('ul');
+
+//     myH2.textContent = heroes[i].name;
+//     myPara1.textContent = 'Secret identity: ' + heroes[i].secretIdentity;
+//     myPara2.textContent = 'Age: ' + heroes[i].age;
+//     myPara3.textContent = 'Superpowers:';
+        
+//     const superPowers = heroes[i].powers;
+//     for (let j = 0; j < superPowers.length; j++) {
+//       const listItem = document.createElement('li');
+//       listItem.textContent = superPowers[j];
+//       myList.appendChild(listItem);
+//     }
+
+//     myArticle.appendChild(myH2);
+//     myArticle.appendChild(myPara1);
+//     myArticle.appendChild(myPara2);
+//     myArticle.appendChild(myPara3);
+//     myArticle.appendChild(myList);
+
+//     section.appendChild(myArticle);
+//   }
+// }
+
+const section = document.querySelector('section');
+
+let para1 = document.createElement('p');
+let para2 = document.createElement('p');
+
+let motherInfo = 'The mother cats are called ';
+let kittenInfo;
+
+fetch('sample.json')
+.then(response => response.text())
+.then(text => displayCatInfo(text))
+
+function displayCatInfo(catString) {
+  let total = 0;
+  let male = 0;
+
+  // Add your code here
+
+// let requestURL='https://github.com/mdn/learning-area/blob/master/javascript/oojs/tasks/json/sample.json'
+
+
+let moncats = JSON.parse(catString);
+
+for (let i=0; i< moncats.length; i++){
+  motherInfo+=`${moncats[i].name}, `;
+   for(let j=0; j<moncats[i].kittens.length; j++){
+    total++; 
+    (moncats[i].kittens[j].gender === "m")? male++:false;
+   }
+  }
+
+  kittenInfo  = `There are ${ total } kittens in total, ${ male } males and ${ total - male } females.`;
+
+//   populateHeader(superHeroes);
+//   showHeroes(superHeroes);
+
+
+// Don't edit the code below here!
+
+  para1.textContent = motherInfo;
+  para2.textContent = kittenInfo;
+}
+
+section.appendChild(para1);
+section.appendChild(para2);
+    
+    </script>
+
+  </body>
+  
+</html>
+
+
